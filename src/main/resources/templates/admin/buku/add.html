@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{fragments/head :: head}"></head>
+<body>
+<div class="row">
+    <div class="col-md-12">
+        <div th:replace="~{fragments/header :: header}"></div>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-2">
+                <div th:replace="~{fragments/menu :: admin}"></div>
+            </div>
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-body">
+                       <form class="form" method="POST" action="/admin/buku/add" th:object="${bukuDto}">
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <label>Kode Buku</label>
+                                  <input type="text" name="idBuku" class="form-control" th:field="*{idBuku}">
+                                  <ul>
+                                      <li th:each="err : ${#fields.errors('idBuku')}" th:text="${err}" class="text-danger"/>
+                                  </ul>
+                              </div>
+                              <div class="col-md-6">
+                                  <label>Kategori</label>
+                                  <select class="form-control" th:field="*{kategori}">
+                                      <option value="">Pilih kategori</option>
+                                      <option th:each="kateg : ${kategoriList}" th:value="${kateg.idKategori}" th:text="${kateg.namaKategori}"></option>
+                                  </select>
+                                  <ul>
+                                      <li th:each="err : ${#fields.errors('kategori')}" th:text="${err}" class="text-danger"/>
+                                  </ul>
+                              </div>
+                              <div class="col-md-6">
+                                  <label>Nama Buku</label>
+                                  <input type="text" name="namaBuku" class="form-control" th:field="*{namaBuku}">
+                                  <ul>
+                                      <li th:each="err : ${#fields.errors('namaBuku')}" th:text="${err}" class="text-danger"/>
+                                  </ul>
+                              </div>
+                              <div class="col-md-6">
+                                  <label>Harga</label>
+                                  <input type="text" name="harga" class="form-control" th:field="*{harga}">
+                                  <ul>
+                                      <li th:each="err : ${#fields.errors('harga')}" th:text="${err}" class="text-danger"/>
+                                  </ul>
+                              </div>
+                              <div class="col-md-6">
+                                  <label>Stok</label>
+                                  <input type="text" name="stok" class="form-control" th:field="*{stok}">
+                                  <ul>
+                                      <li th:each="err : ${#fields.errors('stok')}" th:text="${err}" class="text-danger"/>
+                                  </ul>
+                              </div>
+                              <div class="col-md-6">
+                                  <label>Penerbit</label>
+                                  <select class="form-control" th:field="*{penerbit}">
+                                      <option value="">Pilih Penerbit</option>
+                                      <option th:each="penerbit : ${penerbitList}" th:value="${penerbit.idPenerbit}" th:text="${penerbit.nama}"></option>
+                                  </select>
+                                  <ul>
+                                      <li th:each="err : ${#fields.errors('penerbit')}" th:text="${err}" class="text-danger"/>
+                                  </ul>
+                              </div>
+                              <div class="col-md-12">
+                                  <button type="submit" class="btn btn-primary">Simpan</button>
+                                  <a href="/admin/buku" class="btn btn-danger">Kembali</a>
+                              </div>
+                          </div>
+                       </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

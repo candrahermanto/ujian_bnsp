@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{fragments/head :: head}"></head>
+<body>
+<div class="row">
+    <div class="col-md-12">
+        <div th:replace="~{fragments/header :: header}"></div>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-2">
+                <div th:replace="~{fragments/menu :: admin}"></div>
+            </div>
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-body">
+                       <form class="form" method="POST" action="/admin/penerbit/add" th:object="${penerbitDto}">
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <label>Kode Penerbit</label>
+                                  <input type="text" name="nama" class="form-control" th:field="*{idPenerbit}">
+                                  <ul>
+                                      <li th:each="err : ${#fields.errors('idPenerbit')}" th:text="${err}" class="text-danger"/>
+                                  </ul>
+                              </div>
+                              <div class="col-md-6">
+                                  <label>Nama Penerbit</label>
+                                  <input type="text" name="nama" class="form-control" th:field="*{nama}">
+                                  <ul>
+                                      <li th:each="err : ${#fields.errors('nama')}" th:text="${err}" class="text-danger"/>
+                                  </ul>
+                              </div>
+                              <div class="col-md-6">
+                                  <label>Alamat Penerbit</label>
+                                  <input type="text" name="nama" class="form-control" th:field="*{alamat}">
+                                  <ul>
+                                      <li th:each="err : ${#fields.errors('alamat')}" th:text="${err}" class="text-danger"/>
+                                  </ul>
+                              </div>
+                              <div class="col-md-6">
+                                  <label>Kota</label>
+                                  <input type="text" name="nama" class="form-control" th:field="*{kota}">
+                                  <ul>
+                                      <li th:each="err : ${#fields.errors('kota')}" th:text="${err}" class="text-danger"/>
+                                  </ul>
+                              </div>
+                              <div class="col-md-6">
+                                  <label>Telepon</label>
+                                  <input type="text" name="nama" class="form-control" th:field="*{telepon}">
+                                  <ul>
+                                      <li th:each="err : ${#fields.errors('telepon')}" th:text="${err}" class="text-danger"/>
+                                  </ul>
+                              </div>
+                              <div class="col-md-12">
+                                  <button type="submit" class="btn btn-primary">Simpan</button>
+                                  <a href="/admin/penerbit" class="btn btn-danger">Kembali</a>
+                              </div>
+                          </div>
+                       </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

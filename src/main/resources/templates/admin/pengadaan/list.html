@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{fragments/head :: head}"></head>
+<body class="bg-light">
+<div class="row">
+    <div class="col-md-12">
+        <div th:replace="~{fragments/header :: header}"></div>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-2">
+                <div th:replace="~{fragments/menu :: admin}"></div>
+            </div>
+            <div class="col-md-10">
+                <h1>Data Buku yang harus segera di stok ulang</h1>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card mb-2 mx-2">
+                            <div class="card-body">
+                                <table class="table table-striped">
+                                    <tr>
+                                        <td>No</td>
+                                        <td>ID Buku</td>
+                                        <td>Kategori</td>
+                                        <td>Nama Buku</td>
+                                        <td>harga</td>
+                                        <td>Stok</td>
+                                        <td>Penerbit</td>
+                                    </tr>
+                                    <tr th:each="data, iter : ${bukuList}">
+                                        <td th:text="${iter.index+1}"></td>
+                                        <td th:text="${data.idBuku}">ID Buku</td>
+                                        <td th:text="${data.kategori.namaKategori}">kategori</td>
+                                        <td th:text="${data.namaBuku}">nama buku</td>
+                                        <td th:text="${#numbers.formatDecimal(data.harga,0, 'POINT', 2, 'COMMA')}">harga</td>
+                                        <td th:text="${data.stok}">Stok</td>
+                                        <td th:text="${data.penerbit.nama}">nama penerbit</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

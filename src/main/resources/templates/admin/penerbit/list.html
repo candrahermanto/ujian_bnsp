@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{fragments/head :: head}"></head>
+<body class="bg-light">
+<div class="row">
+    <div class="col-md-12">
+        <div th:replace="~{fragments/header :: header}"></div>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-2">
+                <div th:replace="~{fragments/menu :: admin}"></div>
+            </div>
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card mb-2 mx-2">
+                            <div class="card-body">
+                                <h3>Data Penerbit</h3>
+                                <a href="/admin/penerbit/add" class="btn btn-primary">Tambah</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card mb-2 mx-2">
+                            <div class="card-body">
+                                <form method="POST" action="/admin/penerbit/search" th:object="${penerbitSearchDto}">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Kode Penerbit</label>
+                                            <input type="text" name="idPenerbit" th:field="*{idPenerbit}" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Nama Penerbit</label>
+                                            <input type="text" name="nama" th:field="*{nama}"  class="form-control">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="text-center mb-3 mx-2">
+                                                <button type="submit" class="btn btn-primary">Cari</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card mb-2 mx-2">
+                            <div class="card-body">
+                                <table class="table table-striped">
+                                    <tr>
+                                        <td>ID Penerbit</td>
+                                        <td>Nama Penerbit</td>
+                                        <td>Alamat</td>
+                                        <td>Kota</td>
+                                        <td>Telepon</td>
+                                        <td>Aksi</td>
+                                    </tr>
+                                    <tr th:each="data, iter : ${penerbitList}">
+                                        <td th:text="${data.idPenerbit}">ID Penerbit</td>
+                                        <td th:text="${data.nama}">Nama Penerbit</td>
+                                        <td th:text="${data.alamat}">Alamat</td>
+                                        <td th:text="${data.kota}">Kota</td>
+                                        <td th:text="${data.telepon}">Telepon</td>
+                                        <td>
+                                            <a href="" th:href="@{/admin/penerbit/hapus(idPenerbit=${data.idPenerbit})}"
+                                               class="btn btn-small btn-danger">Hapus</a>
+                                            <a href="" th:href="@{/admin/penerbit/edit(idPenerbit=${data.idPenerbit})}"
+                                               class="btn btn-small btn-info">Edit</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
