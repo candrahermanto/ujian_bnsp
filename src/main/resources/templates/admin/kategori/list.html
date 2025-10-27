@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="~{fragments/head :: head}"></head>
 <body>
 <div class="row">
@@ -32,8 +32,11 @@
                                 <td th:text="${data.namaKategori}">Nama </td>
                                 <td th:text="${data.deskripsi}"> deskripsi</td>
                                 <td>
-                                    <a href="" th:href="@{/admin/kategori/hapus(idKategori=${data.idKategori})}" class="btn btn-small btn-danger">Hapus</a>
                                     <a href="" th:href="@{/admin/kategori/edit(idKategori=${data.idKategori})}" class="btn btn-small btn-info">Edit</a>
+                                    <form th:method="POST" th:action="@{/admin/kategori/hapus}" th:attr="id='' + ${data.idKategori} + ''">
+                                        <input type="hidden"  name="idKategori" th:value="${data.idKategori}">
+                                        <button type="button" class="btn btn-small btn-danger" th:attr="onclick='hapusData(\'' + ${data.idKategori} + '\');'">Hapus</button>
+                                    </form>
                                 </td>
                             </tr>
                         </table>
