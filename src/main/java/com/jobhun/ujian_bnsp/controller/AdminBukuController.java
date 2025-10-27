@@ -88,15 +88,14 @@ public class AdminBukuController {
 
     }
 
-    @GetMapping("/hapus")
-    public String confirmasihapus(@RequestParam String idBuku, Model model){
-        model.addAttribute("idBuku", idBuku);
-        return "admin/buku/hapus_confirm";
-    }
 
     @PostMapping("/hapus")
-    public String hapusKategori(@RequestParam String idBuku, Model model, Pageable pageable){
+    public String hapusKategori(@RequestParam String idBuku, Model model, Pageable pageable, RedirectAttributes redirectAttributes){
         bukuService.deleteBuku(idBuku);
+        List<String> statusList = new ArrayList<>();
+        statusList.add("success");
+        statusList.add("Buku berhasil dihapus");
+        redirectAttributes.addFlashAttribute("status", statusList);
         model.addAttribute("bukuList", bukuService.getAllBuku(pageable));
         return "redirect:/admin/buku";
     }
