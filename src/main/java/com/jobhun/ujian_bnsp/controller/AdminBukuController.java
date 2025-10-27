@@ -16,6 +16,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin/buku")
@@ -66,12 +70,19 @@ public class AdminBukuController {
 
 
     @PostMapping("/add")
-    public String simpanBuku(@Valid BukuDto bukuDto, BindingResult bindingResult, Model model, Pageable pageable){
+    public String simpanBuku(@Valid BukuDto bukuDto, BindingResult bindingResult, Model model, Pageable pageable, RedirectAttributes redirectAttributes){
+        List<String> statusList = new ArrayList<>();
        if(bindingResult.hasErrors()){
            model.addAttribute("penerbitList", penerbitService.getAllPenerbit(pageable));
            model.addAttribute("kategoriList", kategoriSevice.getAllKategori(pageable));
+           statusList.add("error");
+           statusList.add("Buku gagal ditambahkan");
+           model.addAttribute("status", statusList);
            return "admin/buku/add";
        }
+        statusList.add("success");
+        statusList.add("Buku berhasil ditambahkan");
+        redirectAttributes.addFlashAttribute("status", statusList);
        bukuService.simpanBuku(modelMapper.map(bukuDto, Buku.class));
        return "redirect:/admin/buku";
 
