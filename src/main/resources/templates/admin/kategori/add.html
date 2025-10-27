@@ -14,7 +14,7 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-body">
-                       <form class="form" method="POST" action="/admin/kategori/add" th:object="${kategoriDto}">
+                       <form class="form" method="POST" action="/admin/kategori/add" th:object="${kategoriDto}" id="form-simpan">
                           <div class="row">
                               <div class="col-md-6">
                                   <label>Nama Kategori</label>
@@ -32,7 +32,7 @@
                               </div>
                               <div class="col-md-12">
                                   <input type="hidden" th:field="*{idKategori}" th:if="${kategoriDto.idKategori != null}">
-                                  <button type="submit" class="btn btn-primary">Simpan</button>
+                                  <button type="button" class="btn btn-primary" onclick="simpanData()">Simpan</button>
                               </div>
                           </div>
                        </form>

@@ -14,7 +14,7 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-body">
-                       <form class="form" method="POST" action="/admin/buku/add" th:object="${bukuDto}">
+                       <form class="form" method="POST" action="/admin/buku/add" th:object="${bukuDto}" id="form-simpan">
                           <div class="row">
                               <div class="col-md-6">
                                   <label>Kode Buku</label>
@@ -65,7 +65,7 @@
                                   </ul>
                               </div>
                               <div class="col-md-12">
-                                  <button type="submit" class="btn btn-primary">Simpan</button>
+                                  <button type="button" class="btn btn-primary" onclick="simpanData()">Simpan</button>
                                   <a href="/admin/buku" class="btn btn-danger">Kembali</a>
                               </div>
                           </div>
