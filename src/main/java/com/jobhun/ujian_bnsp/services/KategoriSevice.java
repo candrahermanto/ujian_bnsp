@@ -2,6 +2,7 @@ package com.jobhun.ujian_bnsp.services;
 
 import com.jobhun.ujian_bnsp.model.Kategori;
 import com.jobhun.ujian_bnsp.repository.KategoriRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,12 @@ public class KategoriSevice {
     }
 
     public void deleteKategori(Long idKategori){
-        kategoriRepository.deleteById(idKategori);
+       Kategori kategori = kategoriRepository.findById(idKategori). orElseThrow(() -> new EntityNotFoundException("kategori tidak ditemukan: " + idKategori));
+       if(kategori.getBukuSet().isEmpty()) {
+           kategoriRepository.deleteById(idKategori);
+       } else {
+           throw new RuntimeException("Gagal hapus kategori, masih ada buku yang menggunakan kategori tersebut");
+       }
     }
 }
 
