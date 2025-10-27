@@ -34,7 +34,13 @@ public class PenerbitService {
     }
 
     public void deletePenerbit(String idPenerbit) {
-        penerbitRepository.deleteById(idPenerbit);
+        Penerbit penerbit = penerbitRepository.findById(idPenerbit).orElseThrow(() -> new RuntimeException("penerbit tidak ditemukan: " + idPenerbit));
+        if(penerbit.getBukuSet().isEmpty()) {
+            penerbitRepository.deleteById(idPenerbit);
+        } else {
+            throw new RuntimeException("Gagal hapus penerbit, masih ada buku yang menggunakan penerbit tersebut");
+        }
+
     }
 
     public Page<Penerbit> searchPenerbit(Penerbit penerbit, Pageable pageable) {
