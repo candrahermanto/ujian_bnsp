@@ -1,11 +1,11 @@
 package com.jobhun.ujian_bnsp.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -16,4 +16,6 @@ public class Kategori {
     private Long idKategori;
     private String namaKategori;
     private String deskripsi;
+    @OneToMany(mappedBy = "kategori", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Buku> bukuSet = new HashSet<>();
 }
