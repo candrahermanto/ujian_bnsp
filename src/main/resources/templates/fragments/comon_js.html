@@ -7,12 +7,14 @@
 <body>
 
 <script th:if="${status}">
+    window.onload = function() {
        Swal.fire({
             title: '[[${status[0]}]]',
             text:  '[[${status[1]}]]',
             icon: '[[${status[0]}]]',
             confirmButtonText: 'OK'
         });
+    }
 </script>
 </body>
 </html>
