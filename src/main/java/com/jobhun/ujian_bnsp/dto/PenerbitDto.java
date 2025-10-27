@@ -1,5 +1,6 @@
 package com.jobhun.ujian_bnsp.dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -9,12 +10,13 @@ import lombok.Setter;
 @Setter
 public class PenerbitDto {
 
+    @NotEmpty(message = "ID Penerbit tidak boleh kosong")
     private String idPenerbit;
-    @NotNull(message = "Nama tidak boleh kosong")
+    @NotEmpty(message = "Nama tidak boleh kosong")
     private String nama;
-    @NotNull(message = "Alamat tidak boleh kosong")
+    @NotEmpty(message = "Alamat tidak boleh kosong")
     private String alamat;
-    @NotNull(message = "Kota tidak boleh kosong")
+    @NotEmpty(message = "Kota tidak boleh kosong")
     private String kota;
     @Size(min = 13, max = 15, message = "Telepon harus 10-13 digit")
     private String telepon;
