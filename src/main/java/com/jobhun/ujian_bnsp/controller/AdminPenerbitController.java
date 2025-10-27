@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin/penerbit")
@@ -54,10 +58,17 @@ public class AdminPenerbitController {
     }
 
     @PostMapping("/add")
-    public String savePenerbit(@Valid PenerbitDto penerbitDto, BindingResult bindingResult, Model model, Pageable pageable){
+    public String savePenerbit(@Valid PenerbitDto penerbitDto, BindingResult bindingResult, Model model, Pageable pageable, RedirectAttributes redirectAttributes){
+        List<String> statusList = new ArrayList<>();
         if(bindingResult.hasErrors()){
+            statusList.add("error");
+            statusList.add("Penerbit gagal ditambahkan");
+            model.addAttribute("status", statusList);
             return "admin/penerbit/add";
         }
+        statusList.add("success");
+        statusList.add("Penerbit bergasil ditambahkan");
+        redirectAttributes.addFlashAttribute("status", statusList);
         penerbitService.savePenerbit(modelMapper.map(penerbitDto, Penerbit.class));
         return "redirect:/admin/penerbit";
     }
