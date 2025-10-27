@@ -63,10 +63,12 @@
                                         <td th:text="${data.kota}">Kota</td>
                                         <td th:text="${data.telepon}">Telepon</td>
                                         <td>
-                                            <a href="" th:href="@{/admin/penerbit/hapus(idPenerbit=${data.idPenerbit})}"
-                                               class="btn btn-small btn-danger">Hapus</a>
                                             <a href="" th:href="@{/admin/penerbit/edit(idPenerbit=${data.idPenerbit})}"
                                                class="btn btn-small btn-info">Edit</a>
+                                            <form th:method="POST" th:action="@{/admin/penerbit/hapus}" th:attr="id='' + ${data.idPenerbit} + ''">
+                                                <input type="hidden"  name="idPenerbit" th:value="${data.idPenerbit}">
+                                                <button type="button" class="btn btn-small btn-danger" th:attr="onclick='hapusData(\'' + ${data.idPenerbit} + '\');'">Hapus</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 </table>

@@ -82,10 +82,12 @@
                                         <td th:text="${data.stok}">Stok</td>
                                         <td th:text="${data.penerbit.nama}">nama penerbit</td>
                                         <td>
-                                            <a href="" th:href="@{/admin/buku/hapus(idBuku=${data.idBuku})}"
-                                               class="btn btn-small btn-danger">Hapus</a>
                                             <a href="" th:href="@{/admin/buku/edit(idBuku=${data.idBuku})}"
                                                class="btn btn-small btn-info">Edit</a>
+                                            <form th:method="POST" th:action="@{/admin/buku/hapus}" th:attr="id='' + ${data.idBuku} + ''">
+                                                <input type="hidden"  name="idBuku" th:value="${data.idBuku}">
+                                                <button type="button" class="btn btn-small btn-danger" th:attr="onclick='hapusData(\'' + ${data.idBuku} + '\');'">Hapus</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 </table>
