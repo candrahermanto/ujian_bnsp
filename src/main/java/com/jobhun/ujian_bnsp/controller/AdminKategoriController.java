@@ -10,10 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
@@ -79,8 +76,19 @@ public class AdminKategoriController {
     }
 
     @PostMapping("/hapus")
-    public String hapusKategori(@RequestParam Long idKategori, Model model, Pageable pageable){
-        kategoriSevice.deleteKategori(idKategori);
+    public String hapusKategori(@RequestParam Long idKategori, Model model, Pageable pageable, RedirectAttributes redirectAttributes){
+
+        List<String> statusList = new ArrayList<>();
+        try {
+            kategoriSevice.deleteKategori(idKategori);
+            statusList.add("success");
+            statusList.add("kategori berhasil dihapus");
+        } catch (RuntimeException e) {
+            statusList.add("error");
+            statusList.add(e.getMessage());
+        }
+
+        redirectAttributes.addFlashAttribute("status", statusList);
         model.addAttribute("kategoriList", kategoriSevice.getAllKategori(pageable));
         return "redirect:/admin/kategori";
     }
