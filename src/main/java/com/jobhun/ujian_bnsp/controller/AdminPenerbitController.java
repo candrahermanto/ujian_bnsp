@@ -73,15 +73,22 @@ public class AdminPenerbitController {
         return "redirect:/admin/penerbit";
     }
 
-    @GetMapping("/hapus")
-    public String hapusConfirmPenerbit(String idPenerbit, Model model){
-        model.addAttribute("idPenerbit", idPenerbit);
-        return "admin/penerbit/hapus_confirm";
-    }
+
 
     @PostMapping("/hapus")
-    public String hapusPenerbit(String idPenerbit){
-        penerbitService.deletePenerbit(idPenerbit);
+    public String hapusPenerbit(@RequestParam  String idPenerbit, RedirectAttributes redirectAttributes){
+
+        List<String> statusList = new ArrayList<>();
+        try {
+            penerbitService.deletePenerbit(idPenerbit);
+            statusList.add("success");
+            statusList.add("Penerbit berhasil dihapus");
+        } catch (RuntimeException e) {
+            statusList.add("error");
+            statusList.add(e.getMessage());
+        }
+
+        redirectAttributes.addFlashAttribute("status", statusList);
         return "redirect:/admin/penerbit";
     }
 }
