@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin/kategori")
@@ -50,12 +54,20 @@ public class AdminKategoriController {
                                    BindingResult bindingResult,
                                    Model model,
                                    Pageable pageable,
-                                   HttpServletResponse response){
+                                   RedirectAttributes redirectAttributes){
        if(bindingResult.hasErrors()){
+           List<String> statusList = new ArrayList<>();
+           statusList.add("error");
+           statusList.add("kategori gagal ditambahkan");
+           model.addAttribute("status", statusList);
            return "admin/kategori/add";
        } else {
            kategoriSevice.saveKategori(modelMapper.map(kategoriDto, Kategori.class));
            model.addAttribute("kategoriList", kategoriSevice.getAllKategori(pageable));
+           List<String> statusList = new ArrayList<>();
+           statusList.add("success");
+           statusList.add("kategori berhasil ditambahkan");
+           redirectAttributes.addFlashAttribute("status", statusList);
            return "redirect:/admin/kategori";
        }
     }
