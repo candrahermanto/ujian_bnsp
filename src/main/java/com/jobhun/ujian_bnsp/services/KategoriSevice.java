@@ -21,11 +21,11 @@ public class KategoriSevice {
     }
 
     public Kategori getKategoriById(Long idKategori){
-        return kategoriRepository.findById(idKategori).orElse(null);
+        return kategoriRepository.findById(idKategori).orElseThrow(() -> new EntityNotFoundException("kategori tidak ditemukan: " + idKategori));
     }
 
-    public Kategori saveKategori(Kategori kategori){
-        return kategoriRepository.save(kategori);
+    public void saveKategori(Kategori kategori){
+        kategoriRepository.save(kategori);
     }
 
     public void deleteKategori(Long idKategori){

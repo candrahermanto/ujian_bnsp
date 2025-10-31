@@ -2,6 +2,7 @@ package com.jobhun.ujian_bnsp.services;
 
 import com.jobhun.ujian_bnsp.model.Buku;
 import com.jobhun.ujian_bnsp.repository.BukuRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +30,7 @@ public class BukuService {
     }
 
     public Buku getBukuById(String idBuku) {
-        return bukuRepository.findById(idBuku).orElse(null);
+        return bukuRepository.findById(idBuku).orElseThrow(() -> new EntityNotFoundException("Buku tidak ditemukan dengan id " + idBuku));
     }
 
     public void deleteBuku(String idBuku) {
@@ -59,7 +60,6 @@ public class BukuService {
     public Page<Buku> getMinStock(Pageable pageable) {
         List<Buku> list = new ArrayList<>();
         list.add(bukuRepository.findFirstByOrderByStok());
-        Page<Buku> result = new PageImpl<>(list, pageable, 1);
-        return result;
+        return new PageImpl<>(list, pageable, 1);
     }
 }
